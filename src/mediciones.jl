@@ -174,3 +174,51 @@ function Medidas_ET!(Medidas_secciones_promedio, D_Medidas_secciones_promedio, M
         end
     end
 end
+
+function Flujos_promedio_T(Tf, T, Flujos)
+
+    F_promedio_T = Float64[0.]
+    D_F_promedio_T = Float64[0.]
+
+    h = int(ceil(Tf/900))
+    m = 900/T
+
+    for i = 0:h-1
+        push!(F_promedio_T, mean(Flujos[i*m+1:m*(i+1)]))
+        push!(D_F_promedio_T, std(Flujos[i*m+1:m*(i+1)]))
+
+    end
+
+    return F_promedio_T, D_F_promedio_T
+end
+
+function Flujos_promedio(Flujos, Densidades)
+
+    F_promedio = Any[]
+
+    h = 20
+
+    for i = 1:h
+        push!(F_promedio, Float64[])
+    end
+
+    for (l, lim) in enumerate(linspace(0.05, 1, h))
+        for i = 1:length(Flujos)
+            if Densidades[i] <= lim
+                push!(F_promedio[l], Flujos[i])
+                Densidades[i] = Tf+1
+            end
+        end
+    end
+
+    flujos_promedio = Float64[0.]
+    Desviaciones_flujos_promedio = Float64[0.]
+
+    for i = 1:length(F_promedio)
+        push!(flujos_promedio, mean(F_promedio[i]))
+        push!(Desviaciones_flujos_promedio, std(F_promedio[i]))
+    end
+
+    F_promedio = 0
+    return flujos_promedio, Desviaciones_flujos_promedio
+end
