@@ -1,4 +1,9 @@
-# Carretera
+# Carretera.jl
+
+
+![Build status](https://travis-ci.org/LeonardoCastro/Carretera.jl.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/LeonardoCastro/Carretera.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/rodrigolece/RandomWalks.jl?branch=master)
+
 Paquete con tipos y funciones para una carretera de Autómatas Celulares basada en el modelo de NaSch con parámetro de anticipación
 
 Este es el paquete que cree para mi tesis de licenciatura en Física en el que están todos los tipos y funciones usados
