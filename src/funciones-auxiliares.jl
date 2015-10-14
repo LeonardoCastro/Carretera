@@ -41,6 +41,8 @@ end
 
 
 
+############## La funcion Vehiculo_Adelante cuenta a los obstáculos
+
 function Vehiculo_Adelante( posicion, Carretera, N)
     i = posicion
     while i < N && Carretera[i].tipo == -1
@@ -48,6 +50,8 @@ function Vehiculo_Adelante( posicion, Carretera, N)
     end
     i
 end
+
+############ La funcion Vehiculo_Atras NO cuenta los obstáculos
 
 function Vehiculo_Atras( posicion, Carretera, N, frontera_izq::Int8 = int8(5) )
     #frontera_izq = 5

@@ -37,14 +37,14 @@ facts("Probamos las funciones auxiliares Vehiculo") do
   Cambiar_Vehiculo!(C[18], 5, 18, 2, 0, 3)
   Cambiar_Vehiculo!(C[15], -1, 15, -2, 0, 0)
 
-  @fact Vehiculo_Adelante(12, C, 20) --> 18
+  @fact Vehiculo_Adelante(12, C, 20) --> 15
   @fact Vehiculo_Adelante(19, C, 20) --> 20
 
   @fact Vehiculo_Atras(11, C, 20) --> 20
-  @fact Vehiculo_Atras(18, C, 20) --Z 11
+  @fact Vehiculo_Atras(18, C, 20) --> 11
 end
 
-fact("Probamos las funciones básicas") do
+#fact("Probamos las funciones básicas") do
 
-   C = Carretera1D(20).carretera
+ #  C = Carretera1D(20).carretera
 
