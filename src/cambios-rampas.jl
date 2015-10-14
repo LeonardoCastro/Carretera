@@ -1,3 +1,5 @@
+
+## Esta función da la distancia de seguridad que debe de haber entre dos vehículos
 function distancia_seguridad(i, Carretera1, N, delta, alfa::Float32 = 0.75f0)
 
     pvfo = Vehiculo_Adelante(i, Carretera1, N)
@@ -7,6 +9,8 @@ function distancia_seguridad(i, Carretera1, N, delta, alfa::Float32 = 0.75f0)
     return dfo
 end
 
+
+## Esta función hace que un vehículo cambie de carril
 function Cambiar_Carril!(v0::Vehiculo, Cuenta0, C1::Carretera1D)
 
     i = v0.posicion
@@ -25,6 +29,7 @@ function Cambiar_Carril!(v0::Vehiculo, Cuenta0, C1::Carretera1D)
     end
 end
 
+## Esta función hace los cambios de carril desde un carril izquierdo hacia uno derecho
 function CambioIzq_Der!(Ck, Ckmenos1, k)
 
     for v in Ck.carretera[end:-1:9]
@@ -47,6 +52,7 @@ function CambioIzq_Der!(Ck, Ckmenos1, k)
     end
 end
 
+## Esta función hace los cambios de carril desde un carril derecho hacia uno izquierdo
 function CambioDer_Izq!(Ck, Ckmas1, k)
 
     for v in Ck.carretera[end:-1:9]
@@ -68,6 +74,7 @@ function CambioDer_Izq!(Ck, Ckmas1, k)
     end
 end
 
+## Esta función simula una rampa de entrada (tipo == 1) o de salida (tipo == 0)
 function Rampa!( tipo, x0, lramp, pin, p, Ck, num, vmax::Array{Int8, 1} = Int8[3, 5])
     #vmax = [3, 5]
 
