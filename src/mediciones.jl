@@ -158,6 +158,7 @@ function Medidas_DF!(Flujos_secciones_promedio::Array{Float64, 3}, D_Flujos_secc
             end
         end
     end
+end
 
 function Medidas_ET!(Medidas_secciones_promedio::Array{Float64, 3}, D_Medidas_secciones_promedio::Array{Float64, 3}, Medidas::Array{Float64, 3},
                      Tf::Int64, T::Int64, secciones::Array{Int64, 1})
