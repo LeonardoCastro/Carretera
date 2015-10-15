@@ -25,6 +25,8 @@ function AcelerarRuido(carretera, vmax::Array{Int8, 1} = Int8[3, 5], R::Float32 
     end
 end
 
+
+
 function DesacelerarMover(C::Carretera1D)
 
     alfa = 0.75f0
@@ -97,9 +99,10 @@ function AcelerarRuidoS1(carretera, vmax::Array{Int8, 1} = Int8[3, 5], R::Float3
             #Acelerar
             if v.velocidad != -1
                 if (v.posicion < 349) || ( v.posicion > 620 && v.posicion < 663) # Zona de Curvas
-                    vmax[2] -= one(vmax[2])
+                    vmax[2] = int8(4)
                 end
                 Cambiar_Vehiculo!(v, min(v.velocidad+1, vmax[v.tipo]), v.posicion, v.tipo, v.cambio, v.num)
+
             end
 
             #Ruido
@@ -108,8 +111,10 @@ function AcelerarRuidoS1(carretera, vmax::Array{Int8, 1} = Int8[3, 5], R::Float3
                     Cambiar_Vehiculo!(v, max(v.velocidad-1, 0), v.posicion, v.tipo, v.cambio, v.num)
                 end
             end
+            vmax[2] = int8(5)
         end
     end
+  vmax = 0
 end
 
 
@@ -123,11 +128,11 @@ function AcelerarRuidoS2(carretera, vmax::Array{Int8, 1} = Int8[3, 5], R::Float3
             #Acelerar
             if v.velocidad != -1
                 if (v.posicion > 3518) || ( v.posicion < 3408 && v.posicion > 3265) # Zona de Curvas
-                    vmax[2] -= one(vmax[2])
+                    vmax[2] = int8(4)
                 end
 
                 if (v.posicion > 2200) && v.tipo == 1 # Pendiente
-                    vmax[1]-= one(vmax[1])
+                    vmax[1] = int8(2)
                 end
                 Cambiar_Vehiculo!(v, min(v.velocidad+1, vmax[v.tipo]), v.posicion, v.tipo, v.cambio, v.num)
             end
@@ -138,6 +143,8 @@ function AcelerarRuidoS2(carretera, vmax::Array{Int8, 1} = Int8[3, 5], R::Float3
                     Cambiar_Vehiculo!(v, max(v.velocidad-1, 0), v.posicion, v.tipo, v.cambio, v.num)
                 end
             end
+        vmax = Int8[3, 5]
         end
     end
+  vmax = 0
 end
