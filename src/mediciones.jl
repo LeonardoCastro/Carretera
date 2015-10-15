@@ -89,7 +89,8 @@ function tiempos_salida!(Tiempos_salida::Array{Int64, 1}, Tiempos_salida1::Array
     end
 end
 
-function tiempos_iniciales!(Tiempos_iniciales1::Array{Int64,1}, Tiempos_iniciales2::Array{Int64, 1}, T1::Array{Any, 1}, T2::Array{Any, 1}, X1::Array{Any, 1}, X2::Array{Any, 1}, N::Int64 = 3862)
+function tiempos_iniciales!(Tiempos_iniciales1::Array{Int64,1}, Tiempos_iniciales2::Array{Int64, 1},
+                            T1::Array{Any, 1}, T2::Array{Any, 1}, X1::Array{Any, 1}, X2::Array{Any, 1}, N::Int64 = 3862)
 
   for i in 1:length(T1)
       if length(T1[i]) != 0 && X1[i][end] > N-6
@@ -140,42 +141,43 @@ function Tiempos_promedio(Tf::Int64, Tiempos_salida)
     return Tiempos_salida_promedio, Desviaciones_salida_promedio
 end
 
-function Medidas_DF!(Flujos_secciones_promedio, D_Flujos_secciones_promedio, densidad, flujo)
+function Medidas_DF!(Flujos_secciones_promedio::Array{Float64, 3}, D_Flujos_secciones_promedio::Array{Float64, 3}, densidad::Array{Float64, 3},
+                     flujo::Array{Float64, 3}, secciones::Array{Int64, 1})
 
     for k = 1:size(Flujos_secciones_promedio)[3]
-        for s = 1:6
-            for m = 0:2
-                copia_d = copy([de for de in sub(densidad, m*6+s, :, k)][1:end-1])
-                copia_f = copy([fl for fl in sub(flujo, m*6+s, :, k)][1:end-1])
+        for (i, s) in enumerate(secciones[1:end-1])
+            for j =s:secciones[i+1]
+                copia_d = copy([de for de in sub(densidad, j, :, k)][1:end-1])
+                copia_f = copy([fl for fl in sub(flujo, j, :, k)][1:end-1])
                 flujos_promedio, Desviaciones_flujos_promedio = Flujos_promedio(copia_f, copia_d)
                 for l = 1:size(Flujos_secciones_promedio)[2]
-                    Flujos_secciones_promedio[m+1, l, k] += flujos_promedio[l]/6
-                    D_Flujos_secciones_promedio[m+1, l, k] += Desviaciones_flujos_promedio[l]/6
+                    Flujos_secciones_promedio[i, l, k] += flujos_promedio[l]/(secciones[i+1]-s+1)
+                    D_Flujos_secciones_promedio[i, l, k] += Desviaciones_flujos_promedio[l]/(secciones[i+1]-s+1)
                 end
                 copia_d = copia_f = 0
             end
         end
     end
-end
 
-function Medidas_ET!(Medidas_secciones_promedio, D_Medidas_secciones_promedio, Medidas, Tf, T)
+function Medidas_ET!(Medidas_secciones_promedio::Array{Float64, 3}, D_Medidas_secciones_promedio::Array{Float64, 3}, Medidas::Array{Float64, 3},
+                     Tf::Int64, T::Int64, secciones::Array{Int64, 1})
 
     for k = 1:size(Medidas_secciones_promedio)[3]
-        for s = 1:6
-            for m = 0:2
-                M_promedio_T, D_M_promedio_T = Flujos_promedio_T(Tf, T,
-                                                Float64[m for m in sub(Medidas, 6*m+s, :, k)])
-                for l = 1:length(M_promedio_T)
-                    Medidas_secciones_promedio[m+1, l, k] += M_promedio_T[l]/6
-                    D_Medidas_secciones_promedio[m+1, l, k] += D_M_promedio_T[l]/6
-                end
-                M_promedio_T = D_M_promedio_T = 0
+        for (i, s) in enumerate(secciones[1:end-1])
+            for j =s:secciones[i+1]
+                 M_promedio_T, D_M_promedio_T = Flujos_promedio_T(Tf, T,
+                                                    Float64[m for m in sub(Medidas, j, :, k)])
+                 for l = 1:length(M_promedio_T)
+                    Medidas_secciones_promedio[i, l, k] += M_promedio_T[l]/(secciones[i+1]-s+1)
+                    D_Medidas_secciones_promedio[i, l, k] += D_M_promedio_T[l]/(secciones[i+1]-s+1)
+                 end
+                 M_promedio_T = D_M_promedio_T = 0
             end
         end
     end
 end
 
-function Flujos_promedio_T(Tf, T, Flujos)
+function Flujos_promedio_T(Tf::Int64, T::Int64, Flujos::Array{Float64, 1})
 
     F_promedio_T = Float64[0.]
     D_F_promedio_T = Float64[0.]
@@ -206,7 +208,7 @@ function Flujos_promedio(Flujos, Densidades)
         for i = 1:length(Flujos)
             if Densidades[i] <= lim
                 push!(F_promedio[l], Flujos[i])
-                Densidades[i] = Tf+1
+                Densidades[i] = 1.1
             end
         end
     end
