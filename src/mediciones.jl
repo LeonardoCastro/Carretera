@@ -104,7 +104,7 @@ function tiempos_iniciales!(Tiempos_iniciales1::Array{Int64,1}, Tiempos_iniciale
   end
 end
 
-function Tiempos_promedio(Tf::Int64, Tiempos_salida)
+function Tiempos_promedio(Tf::Int64, N::Int64, Tiempos_salida)
 
 
     Ts_promedio = Any[]
