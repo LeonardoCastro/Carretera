@@ -104,8 +104,7 @@ function tiempos_iniciales!(Tiempos_iniciales1::Array{Int64,1}, Tiempos_iniciale
   end
 end
 
-function Tiempos_promedio(Tf::Int64, N::Int64, Tiempos_salida)
-
+function Tiempos_promedio(Tf::Int64, Tiempos_salida, Tiempos_iniciales)
 
     Ts_promedio = Any[]
 
@@ -115,28 +114,23 @@ function Tiempos_promedio(Tf::Int64, N::Int64, Tiempos_salida)
         push!(Ts_promedio, Float64[])
     end
 
-    for j = 1:N-1
-
-        for i = 1:length(Tiempos_salida[j])
-
-            for (n, m) in enumerate(linspace(1800, Tf, h))
-
-                if Tiempos_salida[j][i] <= m
-
-                    push!(Arr[n], Tiempos_salida[j][i])
-                    Tiempos_salida[j][i] = Tf+1
-                end
+    for (l, lim) in enumerate(linspace(900, Tf, h))
+        for i = 1:length(Tiempos_salida)
+            if Tiempos_iniciales[i] <= lim
+                push!(Ts_promedio[l], Tiempos_salida[i])
+                Tiempos_iniciales[i] = Tf+1
             end
         end
     end
 
-    Tiempos_salida_promedio = Float64[]
-    Desviaciones_salida_promedio = Float64[]
+    Tiempos_salida_promedio = Float64[0.]
+    Desviaciones_salida_promedio = Float64[0.]
 
     for i = 1:length(Ts_promedio)
         push!(Tiempos_salida_promedio, mean(Ts_promedio[i]))
         push!(Desviaciones_salida_promedio, std(Ts_promedio[i]))
     end
+
     Ts_promedio = 0
     return Tiempos_salida_promedio, Desviaciones_salida_promedio
 end
