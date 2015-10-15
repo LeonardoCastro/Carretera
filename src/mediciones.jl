@@ -119,7 +119,7 @@ function Tiempos_promedio(Tf::Int64, N::Int64, Tiempos_salida)
 
         for i = 1:length(Tiempos_salida[j])
 
-            for (n, m) in enumarate(linspace(1800, Tf, h))
+            for (n, m) in enumerate(linspace(1800, Tf, h))
 
                 if Tiempos_salida[j][i] <= m
 
