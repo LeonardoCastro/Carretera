@@ -1,6 +1,9 @@
 module Carretera
 
 using JLD
+using Compat
+
+@compat Int8(x)
 
 import Base:
         show
