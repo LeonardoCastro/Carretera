@@ -227,9 +227,9 @@ function Medir_Frecuencias!(carretera, t, Seccion, T, flujo_local2, densidad_loc
   for j = Seccion+4:-1:Seccion
     agregar_Frecuencias!(t, Seccion, carretera[j], flujo_local2, T)
 
-    agregar_Frecuencias!(t, Seccion, carretera[j], densidad_local2, T*C.carretera[j].velocidad)
+    agregar_Frecuencias!(t, Seccion, carretera[j], densidad_local2, T*carretera[j].velocidad)
 
-    if carretera[j] == 0
+    if carretera[j].velocidad == 0
       Diagrama_Transicion[p, j_in] = 0
     end
   end
