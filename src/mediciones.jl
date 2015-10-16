@@ -219,3 +219,32 @@ function Flujos_promedio(Flujos, Densidades)
     F_promedio = 0
     return flujos_promedio, Desviaciones_flujos_promedio
 end
+
+function Medir_Frecuencias!(carretera, t, Seccion, T, flujo_local2, densidad_local2, velocidad_local_promedio2,
+                             Diagrama_Transicion, p, j_in)
+
+
+  for j = Seccion+4:-1:Seccion
+    agregar_Frecuencias!(t, Seccion, carretera[j], flujo_local2, T)
+
+    agregar_Frecuencias!(t, Seccion, carretera[j], densidad_local2, T*C.carretera[j].velocidad)
+
+    if carretera[j] == 0
+      Diagrama_Transicion[p, j_in] = 0
+    end
+  end
+
+  agregar_sencillo_Frecuencias!(velocidad_local_promedio2, flujo_local2, densidad_local2, t, T)
+end
+
+function agregar_Frecuencias!(t, Seccion, v, array2, T)
+  if v.velocidad > 0 && v.tipo == 2
+    array[t] += 1./T
+  end
+end
+
+function agregar_sencillo_Frecuencias!(array_velocidad, array_flujo, array_densidad, t, T)
+
+  v = ( array_densidad[t] != 0 ? array_flujo[t]/array_densidad[t] : 0 )
+  array_velocidad[t] += v/T
+end
