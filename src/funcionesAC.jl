@@ -131,7 +131,7 @@ function AcelerarRuidoS2(carretera, vmax::Array{Int8, 1} = Int8[3, 5], R::Float3
                     vmax[2] = int8(4)
                 end
 
-                if (v.posicion > 2200) && v.tipo == 1 # Pendiente
+                if (v.posicion > 2500) && v.tipo == 1 # Pendiente
                     vmax[1] = int8(2)
                 end
                 Cambiar_Vehiculo!(v, min(v.velocidad+1, vmax[v.tipo]), v.posicion, v.tipo, v.cambio, v.num)
