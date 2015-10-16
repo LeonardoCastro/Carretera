@@ -239,7 +239,7 @@ end
 
 function agregar_Frecuencias!(t, Seccion, v, array2, T)
   if v.velocidad > 0 && v.tipo == 2
-    array[t] += 1./T
+    array2[t] += 1./T
   end
 end
 
