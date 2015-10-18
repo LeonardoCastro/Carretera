@@ -220,31 +220,29 @@ function Flujos_promedio(Flujos, Densidades)
     return flujos_promedio, Desviaciones_flujos_promedio
 end
 
-function Medir_Frecuencias!(carretera, t, Seccion, T, flujo_local2, densidad_local2, velocidad_local_promedio2,
-                             Diagrama_Transicion, p, j_in)
+function Medir_Frecuencias1!(carretera, t, Secciones, T, flujo_local2, densidad_local2, velocidad_local_promedio2, Diagrama_Transicion,
+                                                                                                                             j_in, p)
 
+    for (i, Seccion) in enumerate(Secciones)
+      for j = Seccion+4:-1:Seccion
+            agregar_Frecuencias1!(flujo_local2, carretera[j], i, t,  T)
+            agregar_Frecuencias1!(densidad_local2, carretera[j], i, t, T*carretera[j].velocidad)
 
-  for j = Seccion+4:-1:Seccion
-    agregar_Frecuencias!(t, Seccion, carretera[j], flujo_local2, T)
-
-    agregar_Frecuencias!(t, Seccion, carretera[j], densidad_local2, T*carretera[j].velocidad)
-
-    if carretera[j].velocidad == 0
-      Diagrama_Transicion[p, j_in] = 0
+        if carretera[j].velocidad == 0
+                Diagrama_Transicion[i, j_in, p] = 0
+        end
+      end
+      agregar_sencillo_Frecuencias1!(velocidad_local_promedio2, flujo_local2, densidad_local2, i, t, T)
     end
-  end
-
-  agregar_sencillo_Frecuencias!(velocidad_local_promedio2, flujo_local2, densidad_local2, t, T)
 end
 
-function agregar_Frecuencias!(t, Seccion, v, array2, T)
+function agregar_Frecuencias1!(array2, v, i, t, T)
   if v.velocidad > 0 && v.tipo == 2
-    array2[t] += 1./T
+        array2[i, t] += 1./T
   end
 end
 
-function agregar_sencillo_Frecuencias!(array_velocidad, array_flujo, array_densidad, t, T)
-
-  v = ( array_densidad[t] != 0 ? array_flujo[t]/array_densidad[t] : 0 )
-  array_velocidad[t] += v/T
+function agregar_sencillo_Frecuencias1!(array_velocidad, array_flujo, array_densidad, i, t, T)
+    v = ( array_densidad[i, t] != 0 ? array_flujo[i, t]/array_densidad[i, t] : 0 )
+    array_velocidad[i, t] += v/T
 end
