@@ -1,8 +1,3 @@
-function agregar_sencillo_Frecuencias!(array_velocidad, array_flujo, array_densidad, i, t, T)
-    v = ( array_densidad[i, t] != 0 ? array_flujo[i, t]/array_densidad[i, t] : 0 )
-    array_velocidad[i, t] += v/T
-end
-
 function agregar_sencillo!(array_velocidad, array_flujo, array_densidad, i, t, T)
 
     v = ( array_densidad[i, t] != 0 ? array_flujo[i, t]/array_densidad[i, t] : 0 )
@@ -36,11 +31,9 @@ function agregar!(i, j, t, x_seccion, v, array, array1, array2, T)
     end
 end
 
-function Medir_Frecuencias!(carretera, t, Secciones, T, flujo_local2, densidad_local2, velocidad_local_promedio2, Diagrama_Transicion,
-                                                                                                                             j_in, p)
+function Medir_Frecuencias!(carretera, t, Secciones, T, flujo_local2, densidad_local2, Diagrama_Transicion, j_in, p)
 
     for (i, Seccion) in enumerate(Secciones)
-      NT = 0
       for j = Seccion+4:-1:Seccion
             agregar_Frecuencias!(flujo_local2, carretera[j], i, t, j, Seccion, T)
             agregar_Frecuencias!(densidad_local2, carretera[j], i, t, j, Seccion, T*carretera[j].velocidad)
@@ -48,11 +41,7 @@ function Medir_Frecuencias!(carretera, t, Secciones, T, flujo_local2, densidad_l
             if carretera[j].velocidad == 0 && (carretera[j].tipo == 1 || carretera[j].tipo == 2 )
                     Diagrama_Transicion[i, j_in, p] = 0
             end
-            if carretera[j].tipo == 2
-              NT += 1
-            end
       end
-      agregar_sencillo_Frecuencias!(velocidad_local_promedio2, flujo_local2, densidad_local2, i, t, T*NT)
     end
 end
 
