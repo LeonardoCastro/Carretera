@@ -13,7 +13,7 @@ Los documentos de la tesis se encuentran en el repositorio [Tesis-Cambios-de-fas
 
 ## Instalación
 
-en la carpeta `~/.julia/v0.4/` escribir
+en la carpeta `~/.julia/v0.3/` escribir
 
 `git clone https://github.com/LeonardoCastro/Carretera.jl.git`
 
