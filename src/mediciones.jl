@@ -133,7 +133,7 @@ function Tiempos_promedio(Tf::Int64, Tiempos_salida, Tiempos_iniciales)
 
     Ts_promedio = Any[]
 
-    h = int64(ceil(Tf/900))
+  h = round(Int64, ceil(Tf/900))
 
     for i = 1:h
         push!(Ts_promedio, Float64[])
@@ -202,8 +202,8 @@ function Flujos_promedio_T(Tf::Int64, T::Int64, Flujos::Array{Float64, 1})
     F_promedio_T = Float64[0.]
     D_F_promedio_T = Float64[0.]
 
-    h = int(ceil(Tf/900))
-    m = 900/T
+                          h = round(Int64, ceil(Tf/900))
+    m = Int64(900/T)
 
     for i = 0:h-1
         push!(F_promedio_T, mean(Flujos[i*m+1:m*(i+1)]))
