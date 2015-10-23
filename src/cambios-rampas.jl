@@ -4,7 +4,7 @@ function distancia_seguridad(i, Carretera1, N, delta, alfa::Float32 = 0.75f0)
 
     pvfo = Vehiculo_Adelante(i, Carretera1, N)
     d_ifo = (pvfo < N ? (pvfo-i-1) : delta*5 ) # 5 = vmax[2]
-    dfo = d_ifo + int8( floor( (1.-alfa) * Carretera1[pvfo].velocidad + 0.5) )
+    dfo = d_ifo + Int8( floor( (1.-alfa) * Carretera1[pvfo].velocidad + 0.5) )
     alfa = 0; pvfo = 0; d_ifo = 0
     return dfo
 end
@@ -35,7 +35,7 @@ function CambioIzq_Der!(Ck, Ckmenos1, k)
     for v in Ck.carretera[end:-1:9]
         if (v.tipo == 1 || v.tipo == 2) && v.cambio == 0
 
-            delta = v.tipo == 2 ? int8(3) : int8(1)
+            delta = v.tipo == 2 ? Int8(3) : Int8(1)
             l = v.velocidad
             dfo = distancia_seguridad(v.posicion, Ckmenos1.carretera, Ckmenos1.N, delta)
             dfs = distancia_seguridad(v.posicion, Ck.carretera, Ck.N, delta)
@@ -59,11 +59,11 @@ function CambioDer_Izq!(Ck, Ckmas1, k)
         #if (v.tipo == 2 || (v.tipo == 1 && k < 2)) && v.cambio == 0
         if v.tipo == 2 && v.cambio == 0
             l = v.velocidad
-            dfs = distancia_seguridad(v.posicion, Ck.carretera, Ck.N, int8(1))
+            dfs = distancia_seguridad(v.posicion, Ck.carretera, Ck.N, Int8(1))
 
             if dfs < l
                 if Ckmas1.carretera[v.posicion].tipo == -1
-                    dfo = distancia_seguridad(v.posicion, Ckmas1.carretera, Ckmas1.N, int8(1))
+                    dfo = distancia_seguridad(v.posicion, Ckmas1.carretera, Ckmas1.N, Int8(1))
                     if dfo >= l
                         Cambiar_Carril!(Ck.carretera[v.posicion], Ck.cuenta, Ckmas1)
                     end
