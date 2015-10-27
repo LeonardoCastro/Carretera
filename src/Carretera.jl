@@ -14,8 +14,13 @@ export
         agregar!, agregar_sencillo!, Medir!, Medidas_ET!, Medidas_DF!, Flujos_promedio, Flujos_promedio_T,
         ET!, ET_tipo!, tiempos_salida!, tiempos_iniciales!, Tiempos_promedio,
         Sentido1, Sentido2, S1_in_rampa, S2_in_rampa, Secciones1, Secciones2, S1_P_camion_s1, S1_P_camion_s2,
+<<<<<<< HEAD
         S2_P_camion_s1, S2_P_camion_s2, S1_in_rampa_ampli, S2_in_rampa_ampli, Secciones1_CR, Secciones2_CR,
         Medir_Frecuencias!, agregar_Frecuencias!
+=======
+        S2_P_camion_s1, S2_P_camion_s2, S1_in_rampa_ampli, S2_in_rampa_ampli, Secciones1_CR, Secciones1_CR,
+        Medir_Frecuencias!, agregar_Frecuencias!, P_camion_S1, P_camion_S2
+>>>>>>> 2df40e6... agrego p_camion
 
 include("tipos.jl")
 include("funciones-auxiliares.jl")
