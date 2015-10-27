@@ -31,7 +31,7 @@ S1_in_rampa_ampli = [(10, 20), (2500, 20), (2958, 6), (3158, 3)]
 
 function Sentido2()
     Sentido_2 = Carretera2D(3, 3640+6)
-    for i = 1:3685 # 3685 = 3863 - 177 - 1
+    for i = 1:3440 # 3685 = 3863 - 177 - 1
         Obstaculo!(Sentido_2.carretera[1].carretera[i])
     end
     return Sentido_2, Sentido_2.carretera
