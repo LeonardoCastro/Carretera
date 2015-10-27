@@ -127,7 +127,7 @@ function AcelerarRuidoS2(carretera, vmax::Array{Int8, 1} = Int8[3, 5], R::Float3
 
             #Acelerar
             if v.velocidad != -1
-                if (v.posicion > 3518) || ( v.posicion < 3408 && v.posicion > 3265) # Zona de Curvas
+                if (v.posicion > 3518) || ( v.posicion < 3408 && v.posicion > 3265) && v.tipo == 2 # Zona de Curvas
                     vmax[2] = Int8(4)
                 end
 
