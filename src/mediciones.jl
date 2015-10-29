@@ -31,12 +31,13 @@ function agregar!(i, j, t, x_seccion, v, array, array1, array2, T)
     end
 end
 
-function Medir_Frecuencias!(carretera, t, Secciones, T, flujo_local2, densidad_local2, Diagrama_Transicion, j_in, p)
+function Medir_Frecuencias!(carretera, t, Secciones, T, flujo_local2, densidad_local2, flujo_local1, Diagrama_Transicion, j_in, p)
 
     for (i, Seccion) in enumerate(Secciones)
       for j = Seccion+4:-1:Seccion
             agregar_Frecuencias!(flujo_local2, carretera[j], i, t, j, Seccion, T)
             agregar_Frecuencias!(densidad_local2, carretera[j], i, t, j, Seccion, T*carretera[j].velocidad)
+            agregar_Frecuencias!(flujo_local1, carretera[j], i, t, j, Seccion, T)
 
             if carretera[j].velocidad == 0 && (carretera[j].tipo == 1 || carretera[j].tipo == 2 )
                     Diagrama_Transicion[i, j_in, p] = 0
