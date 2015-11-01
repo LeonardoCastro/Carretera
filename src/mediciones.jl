@@ -4,11 +4,11 @@ function agregar_sencillo!(array_velocidad, array_flujo, array_densidad, i, t, T
     array_velocidad[i, t] += v/T
 end
 
-function agregar_Frecuencias!(array2, v, i, t, j, x_seccion, T)
+function agregar_Frecuencias!(array2, v, i, t, j, x_seccion, T; tipo::Int64 = 2)
 
   if v.velocidad > 0
     if j-v.velocidad < x_seccion
-      if v.tipo == 2
+      if v.tipo == tipo
         array2[i, t] += 1/T
       end
     end
@@ -37,7 +37,7 @@ function Medir_Frecuencias!(carretera, t, Secciones, T, flujo_local2, densidad_l
       for j = Seccion+4:-1:Seccion
             agregar_Frecuencias!(flujo_local2, carretera[j], i, t, j, Seccion, T)
             agregar_Frecuencias!(densidad_local2, carretera[j], i, t, j, Seccion, T*carretera[j].velocidad)
-            agregar_Frecuencias!(flujo_local1, carretera[j], i, t, j, Seccion, T)
+            agregar_Frecuencias!(flujo_local1, carretera[j], i, t, j, Seccion, T, tipo=1)
 
             if carretera[j].velocidad == 0 && (carretera[j].tipo == 1 || carretera[j].tipo == 2 )
                     Diagrama_Transicion[i, j_in, p] = 0
