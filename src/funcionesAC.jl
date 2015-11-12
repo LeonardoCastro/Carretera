@@ -1,4 +1,4 @@
-function AcelerarRuido(carretera, vmax::Array{Int8, 1} = Int8[3, 5], R::Float32 = 0.2f0, frontera_izq::Int64 = 5)
+function AcelerarRuido(carretera; vmax::Array{Int8, 1} = Int8[3, 5], R::Float32 = 0.2f0, frontera_izq::Int64 = 5)
 
     #frontera_izq = 5
     #vmax = [3, 5]
