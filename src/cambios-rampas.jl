@@ -17,7 +17,8 @@ function Cambiar_Carril!(v0::Vehiculo, Cuenta0, C1::Carretera1D)
     if C1.carretera[i].tipo == -1
 
         pvbo = Vehiculo_Atras(i, C1.carretera, C1.N)
-        d_bo = (pvbo < (C1.N) ? (i-pvbo-1) : 5 ) # 5 = vmax[2]
+        ############################ cambio ###################################
+        d_bo = (pvbo < (C1.N) ? (i-pvbo-1) : 5 ) # 5 = vmax[2] (i-pvbo-longitud)
         vb = C1.carretera[pvbo].velocidad
         if vb <= d_bo
 
@@ -80,7 +81,8 @@ function Rampa!( tipo, x0, lramp, pin, p, Ck, num, vmax::Array{Int8, 1} = Int8[3
 
     # Rampa de salida, tipo == 0
     if tipo == 0
-        x = Pos_der(Ck.carretera[x0:x0+lramp])
+    ############################ cambio ###################################
+        x = Pos_der(Ck.carretera[x0:x0+lramp])  # if longitud > 1 Ck.carretera[xi] && ... && Ck.carretera[xi+londitud] esten vacia 
         if x <= x0+lramp && rand() < pin
             if Ck.cuenta > 0
                 Ck.cuenta -= 1
@@ -90,6 +92,7 @@ function Rampa!( tipo, x0, lramp, pin, p, Ck, num, vmax::Array{Int8, 1} = Int8[3
 
     # Rampa de entrada, tipo == 1
     elseif tipo == 1
+    ############################ cambio ###################################
         x = Pos_siguiente(Ck.carretera[x0:x0+lramp])
         if x <= x0+lramp && rand() < pin
           Ck.cuenta += 1
