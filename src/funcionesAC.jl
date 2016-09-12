@@ -39,7 +39,8 @@ function DesacelerarMover(C::Carretera1D)
     while (i > 0)
 
         if i_1 != 0
-          distancia = i - i_1 - 1
+        ############################ cambio ###################################
+          distancia = i - i_1 - 1 # distancia = i - i_1 - C.carretera[i_1].longitud
 
           # Desaceleramos el automovil i-1 a partir del automovil i
           velocidad_estimada = round(Int8, floor( C.carretera[i].velocidad * (1.0 - alfa) + 0.5 ) )
